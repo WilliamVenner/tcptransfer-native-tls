@@ -14,12 +14,9 @@ fn server(path: PathBuf) {
             let socket = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
 
             let tls = {
-                let cert = rcgen::generate_simple_self_signed(vec!["tcptransfer".into()]).unwrap();
-                let cert_pem = cert.serialize_pem().unwrap();
-                let priv_key = cert.serialize_private_key_pem();
                 TlsAcceptor::from(
                     native_tls::TlsAcceptor::builder(
-                        native_tls::Identity::from_pkcs8(cert_pem.as_bytes(), priv_key.as_bytes())
+                        native_tls::Identity::from_pkcs12(include_bytes!("identity.p12"), "mypass")
                             .unwrap(),
                     )
                     .build()

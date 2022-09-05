@@ -1,0 +1,9 @@
+[package]
+name = "tcptransfer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "fs", "io-util", "net"] }
+tokio-native-tls = "0.3"
+rcgen = "0.9"
